@@ -1,5 +1,5 @@
 # Use the official Python 3.12 image
-FROM python:3.12-slim
+FROM python:3.13.7-slim
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -22,12 +22,14 @@ RUN pip install poetry
 
 # Configure poetry: Don't create a virtual environment
 ENV POETRY_NO_INTERACTION=1 \
-    POETRY_VENV_IN_PROJECT=1 \
     POETRY_CACHE_DIR=/tmp/poetry_cache
+
+RUN poetry config virtualenvs.create false
 
 # Install Python dependencies
 COPY pyproject.toml poetry.lock ./
-RUN poetry install --no-dev && rm -rf $POETRY_CACHE_DIR
+COPY app/README.md /app/README.md
+RUN poetry install --no-root && rm -rf $POETRY_CACHE_DIR
 
 # Copy project
 COPY . .
@@ -36,4 +38,4 @@ COPY . .
 EXPOSE 8000
 
 # Run the application
-CMD ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

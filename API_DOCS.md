@@ -10,7 +10,7 @@
 ### 1. Root Endpoint
 - **GET** `/`
   - Description: Welcome message
-  - Response: `{"message": "Prog3 Backend API is running!"}`
+  - Response: `{"message": "Programação 3 Backend API is running!"}`
 
 ### 2. Health Check Endpoints
 - **GET** `/api/v1/health`

@@ -4,7 +4,8 @@ from contextlib import asynccontextmanager
 import uvicorn
 
 from app.database import engine, Base
-from app.routers import health, users
+from app.controllers.health_controller import router as health_router
+from app.controllers.user_controller import router as user_router
 from app.config import settings
 from app import models  # Import models to ensure tables are created
 
@@ -18,7 +19,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Prog3 Backend",
+    title="Programação 3 Backend",
     description="Backend do projeto da disciplina de Programação 3",
     version="1.0.0",
     lifespan=lifespan
@@ -34,13 +35,13 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(health.router, prefix="/api/v1")
-app.include_router(users.router, prefix="/api/v1")
+app.include_router(health_router, prefix="/api/v1")
+app.include_router(user_router, prefix="/api/v1")
 
 
 @app.get("/")
 async def root():
-    return {"message": "Prog3 Backend API is running!"}
+    return {"message": "Programação 3 teste Backend API is running!"}
 
 
 if __name__ == "__main__":

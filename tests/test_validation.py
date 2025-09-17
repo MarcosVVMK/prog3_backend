@@ -40,7 +40,7 @@ def test_root_endpoint():
     """Test root endpoint"""
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"message": "Prog3 Backend API is running!"}
+    assert response.json() == {"message": "Programação 3 Backend API is running!"}
 
 
 def test_user_endpoints_structure():
