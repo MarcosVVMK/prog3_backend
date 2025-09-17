@@ -205,3 +205,10 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Test databases
+test.db
+*.db
+
+# Poetry cache
+.pytest_cache/

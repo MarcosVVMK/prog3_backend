@@ -8,6 +8,7 @@ Backend do projeto da disciplina de Programação 3
 - **Docker**: Containerização da aplicação
 - **SQLAlchemy**: ORM para Python
 - **Pydantic**: Validação de dados
+- **Poetry**: Gerenciamento de dependências Python
 
 ## Versões
 
@@ -68,12 +69,24 @@ prog3_backend/
 │   ├── database.py        # Configuração do banco de dados
 │   ├── models.py          # Modelos do SQLAlchemy
 │   ├── schemas.py         # Schemas do Pydantic
+│   ├── controllers/       # Controladores (endpoints/roteadores)
+│   │   ├── __init__.py
+│   │   └── user_controller.py
+│   ├── services/          # Lógica de negócio
+│   │   ├── __init__.py
+│   │   ├── base_service.py
+│   │   └── user_service.py
+│   ├── repositories/      # Camada de acesso a dados
+│   │   ├── __init__.py
+│   │   ├── base_repository.py
+│   │   └── user_repository.py
 │   └── routers/
 │       ├── __init__.py
 │       ├── health.py      # Endpoints de health check
 │       └── users.py       # Endpoints de usuários
 ├── main.py                # Arquivo principal da aplicação
-├── requirements.txt       # Dependências Python
+├── pyproject.toml         # Configuração do Poetry
+├── poetry.lock           # Lock file do Poetry
 ├── Dockerfile            # Configuração do Docker
 ├── docker-compose.yml    # Orquestração dos containers
 ├── .env.example          # Exemplo de variáveis de ambiente
@@ -84,17 +97,41 @@ prog3_backend/
 
 ### Executar localmente (sem Docker)
 
-1. **Instale as dependências:**
+1. **Instale o Poetry (se não tiver instalado):**
    ```bash
-   pip install -r requirements.txt
+   pip install poetry
    ```
 
-2. **Configure o banco PostgreSQL localmente e ajuste a DATABASE_URL no .env**
-
-3. **Execute a aplicação:**
+2. **Instale as dependências:**
    ```bash
-   uvicorn main:app --reload --host 0.0.0.0 --port 8000
+   poetry install
    ```
+
+3. **Configure o banco PostgreSQL localmente e ajuste a DATABASE_URL no .env**
+
+4. **Execute a aplicação:**
+   ```bash
+   poetry run uvicorn main:app --reload --host 0.0.0.0 --port 8000
+   ```
+
+### Comandos Poetry úteis
+
+```bash
+# Instalar dependências
+poetry install
+
+# Adicionar nova dependência
+poetry add package_name
+
+# Adicionar dependência de desenvolvimento
+poetry add --group dev package_name
+
+# Ativar o ambiente virtual
+poetry shell
+
+# Executar comandos no ambiente Poetry
+poetry run command
+```
 
 ### Comandos Docker úteis
 
