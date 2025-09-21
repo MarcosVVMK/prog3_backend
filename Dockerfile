@@ -29,6 +29,7 @@ RUN poetry config virtualenvs.create false
 # Install Python dependencies
 COPY pyproject.toml poetry.lock ./
 COPY app/README.md /app/README.md
+RUN poetry lock
 RUN poetry install --no-root && rm -rf $POETRY_CACHE_DIR
 
 # Copy project

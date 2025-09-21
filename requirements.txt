@@ -7,3 +7,5 @@ python-dotenv
 pydantic
 pydantic-settings
 email-validator
+pyjwt
+passlib[bcrypt]
